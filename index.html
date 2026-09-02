@@ -3,108 +3,4181 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VoidMind Omega System</title>
+<title>OriginKit AI</title>
+
 <style>
-:root{
-  --bg:#030305;--panel:rgba(255,255,255,.045);--line:rgba(139,92,246,.22);
-  --text:#f5f7ff;--muted:#8d92a3;--blue:#60a5fa;--purple:#a78bfa;
-  --pink:#f472b6;--cyan:#22d3ee;--indigo:#818cf8;--yellow:#facc15;
+*{
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
 }
-*{box-sizing:border-box}
-html,body{margin:0;min-height:100%;font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;background:#030305;color:var(--text)}
-body{overflow-x:hidden}
-button,input,textarea{font:inherit}
-button{cursor:pointer}
-.app{min-height:100vh;position:relative;background:
- radial-gradient(ellipse at top,rgba(88,28,135,.22),transparent 48%),
- radial-gradient(circle at 20% 90%,rgba(37,99,235,.08),transparent 28%),#030305}
-.app:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.35;background-image:linear-gradient(rgba(139,92,246,.045) 1px,transparent 1px),linear-gradient(90deg,rgba(139,92,246,.045) 1px,transparent 1px);background-size:60px 60px}
-.glow{position:fixed;width:380px;height:380px;border-radius:50%;filter:blur(100px);opacity:.12;pointer-events:none}
-.glow.a{top:-100px;left:15%;background:#3b82f6}.glow.b{bottom:-100px;right:15%;background:#9333ea}
-main{position:relative;z-index:2;padding-bottom:105px}
-.container{max-width:1050px;margin:auto;padding:0 22px}
-.header{padding:28px 0 24px;border-bottom:1px solid var(--line);background:rgba(0,0,0,.42);backdrop-filter:blur(18px)}
-.brand{display:flex;align-items:center;gap:12px}.brand-icon{font-size:30px;color:var(--blue);filter:drop-shadow(0 0 12px rgba(96,165,250,.65))}
-.title{font-size:28px;font-weight:800;letter-spacing:-.5px;background:linear-gradient(90deg,#60a5fa,#a78bfa,#f472b6);-webkit-background-clip:text;color:transparent}
-.kicker{font-size:11px;letter-spacing:.22em;color:#777d8f;margin-top:5px}
-.toprow{display:flex;justify-content:space-between;align-items:flex-start;gap:20px}.clock{text-align:right;color:var(--purple);font-size:25px;font-weight:800}.date{font-size:10px;color:#656a78;letter-spacing:.12em}
-.status{margin-top:24px;padding:16px;border:1px solid rgba(139,92,246,.3);border-radius:18px;background:linear-gradient(90deg,rgba(168,85,247,.1),rgba(59,130,246,.08));display:flex;justify-content:space-between;align-items:center}
-.status-left{display:flex;align-items:center;gap:15px}.orb-small{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,#111827 45%,#7c3aed 46%,#2563eb 72%,transparent 73%);box-shadow:0 0 28px rgba(124,58,237,.35);font-size:24px}
-.badge{padding:6px 10px;border-radius:999px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.22);color:#86efac;font-size:10px;letter-spacing:.12em}
-.grid{display:grid;gap:16px}.stats-grid{grid-template-columns:repeat(3,1fr);margin-top:20px}.two{grid-template-columns:repeat(2,1fr)}
-.card{background:var(--panel);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:20px;backdrop-filter:blur(16px);box-shadow:0 10px 45px rgba(0,0,0,.18)}
-.metric{display:flex;align-items:center;gap:12px}.metric-icon{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;font-size:19px}.blue{color:#60a5fa}.purple{color:#a78bfa}.pink{color:#f472b6}.cyan{color:#22d3ee}.violet{color:#c4b5fd}.indigo{color:#818cf8}.yellow{color:#facc15}.green{color:#4ade80}
-.metric-label{font-size:11px;color:#7d8290;letter-spacing:.1em}.metric-value{font-size:30px;font-weight:800;margin-top:4px}
-.progress{height:6px;background:#171923;border-radius:99px;overflow:hidden;margin-top:13px}.bar{height:100%;border-radius:99px;background:linear-gradient(90deg,#3b82f6,#a855f7);box-shadow:0 0 14px rgba(139,92,246,.5)}
-.section{margin-top:18px}.section-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}.section-title{font-size:18px;font-weight:750}.muted{color:var(--muted);font-size:12px}
-.chart{width:100%;height:230px;display:block}.legend{display:flex;gap:20px;font-size:11px;color:#8d92a3;margin-top:10px}.dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px}
-nav{position:fixed;left:0;right:0;bottom:0;z-index:20;background:rgba(0,0,0,.72);border-top:1px solid var(--line);backdrop-filter:blur(22px)}
-.nav-inner{max-width:650px;margin:auto;padding:10px 8px;display:grid;grid-template-columns:repeat(6,1fr);gap:4px}
-.nav-btn{border:0;background:transparent;color:#666b79;padding:8px 3px;border-radius:13px;font-size:9px;font-weight:800;letter-spacing:.08em}.nav-btn span{display:block;font-size:21px;margin-bottom:3px}.nav-btn.active{background:rgba(139,92,246,.09);color:#a78bfa}
-.page{padding:28px 0}.page-head{display:flex;align-items:center;gap:12px;margin-bottom:25px}.page-icon{font-size:25px}.page-title{font-size:24px;font-weight:800;background:linear-gradient(90deg,#a78bfa,#f472b6);-webkit-background-clip:text;color:transparent}
-.hero-orb{height:270px;display:grid;place-items:center;position:relative}.rings{width:190px;height:190px;border:1px solid rgba(167,139,250,.25);border-radius:50%;position:relative;animation:spin 18s linear infinite}.rings:before,.rings:after{content:"";position:absolute;border:1px solid rgba(96,165,250,.2);border-radius:50%;inset:18px;animation:spin 11s linear reverse infinite}.rings:after{inset:40px;border-color:rgba(244,114,182,.22);animation-duration:8s}.core{position:absolute;width:105px;height:105px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#c4b5fd,#7c3aed 35%,#1e1b4b 65%,#050507 72%);box-shadow:0 0 55px rgba(124,58,237,.6),0 0 100px rgba(59,130,246,.2);animation:pulse 2.5s ease-in-out infinite}
-.ai-box{text-align:center;min-height:80px}.ai-message{font-size:19px;line-height:1.6;color:#ddd;min-height:60px}.cursor{color:#a78bfa;animation:blink .8s infinite}
-textarea{width:100%;min-height:150px;resize:vertical;background:rgba(0,0,0,.35);border:1px solid rgba(139,92,246,.22);border-radius:14px;color:#fff;padding:15px;outline:none}textarea:focus{border-color:rgba(167,139,250,.7);box-shadow:0 0 25px rgba(124,58,237,.12)}
-.btn{border:1px solid rgba(139,92,246,.35);background:linear-gradient(90deg,rgba(124,58,237,.25),rgba(59,130,246,.18));color:#fff;padding:11px 16px;border-radius:12px;font-weight:750}.btn:hover{border-color:#a78bfa;box-shadow:0 0 20px rgba(124,58,237,.18)}
-.entries{display:grid;gap:12px;margin-top:18px}.entry{position:relative}.entry p{white-space:pre-wrap;line-height:1.55;color:#d5d7df;margin:12px 0}.entry-meta{display:flex;justify-content:space-between;align-items:center;color:#707687;font-size:10px}.emotion{padding:5px 8px;border-radius:8px;border:1px solid rgba(167,139,250,.25);color:#c4b5fd;background:rgba(139,92,246,.08)}
-.delete{position:absolute;right:15px;top:15px;border:0;background:transparent;color:#666;cursor:pointer}.delete:hover{color:#f87171}
-.profile{display:flex;gap:18px;align-items:center}.avatar{width:82px;height:82px;border-radius:22px;display:grid;place-items:center;font-size:34px;background:linear-gradient(135deg,#7c3aed,#2563eb);box-shadow:0 0 35px rgba(124,58,237,.3)}
-.level{font-size:12px;color:#999}.level strong{font-size:32px;color:#fff}.xp{margin-top:10px}.attr{display:grid;gap:13px}.attr-row{display:grid;grid-template-columns:130px 1fr 45px;gap:10px;align-items:center;font-size:12px}.achievements{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.achievement{text-align:center;padding:18px 10px;border:1px solid rgba(255,255,255,.07);border-radius:15px;background:rgba(255,255,255,.025)}.achievement .aicon{font-size:26px;margin-bottom:8px}.locked{opacity:.3}
-.void-mode{min-height:calc(100vh - 105px);display:grid;place-items:center;text-align:center;position:relative;overflow:hidden}.void-clock{font-size:clamp(58px,12vw,120px);font-weight:200;letter-spacing:.08em;color:#eee;text-shadow:0 0 35px rgba(167,139,250,.22)}.quote{max-width:720px;font-size:clamp(18px,3vw,28px);color:#8f93a2;line-height:1.6;font-weight:300}.void-date{font-size:11px;color:#555;letter-spacing:.2em;text-transform:uppercase}.void-toggle{margin-top:22px;border:1px solid rgba(139,92,246,.22);background:rgba(255,255,255,.03);color:#777;border-radius:999px;padding:10px 16px}
-.analysis{border-color:rgba(96,165,250,.2);background:linear-gradient(135deg,rgba(124,58,237,.08),rgba(37,99,235,.05))}
-.small-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.mini{padding:15px;border-radius:13px;background:rgba(255,255,255,.025);border:1px solid rgba(255,255,255,.06)}.mini b{font-size:21px}
-@keyframes pulse{50%{transform:scale(1.05);opacity:.82}}@keyframes spin{to{transform:rotate(360deg)}}@keyframes blink{50%{opacity:0}}
-@media(max-width:720px){.stats-grid,.two,.achievements{grid-template-columns:1fr}.small-grid{grid-template-columns:1fr 1fr}.toprow{flex-direction:column}.clock{text-align:left}.nav-inner{grid-template-columns:repeat(6,1fr)}.nav-btn{font-size:8px}.title{font-size:23px}.attr-row{grid-template-columns:105px 1fr 40px}}
-@media(max-width:430px){.nav-btn span{font-size:18px}.container{padding:0 15px}.small-grid{grid-template-columns:1fr}.status{align-items:flex-start;gap:12px;flex-direction:column}}
+
+:root{
+  --bg:#090a0d;
+  --panel:#101216;
+  --panel2:#15171d;
+  --panel3:#1b1e25;
+  --border:#282c35;
+  --border2:#343944;
+  --text:#f2f4f7;
+  --muted:#858b98;
+  --accent:#8b7cff;
+  --accent2:#6d5dfc;
+  --danger:#ff5d6c;
+  --success:#48d597;
+  --canvas:#ffffff;
+  --siteText:#111827;
+}
+
+body{
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  height:100vh;
+  overflow:hidden;
+}
+
+button,
+input,
+textarea,
+select{
+  font:inherit;
+}
+
+button{
+  border:0;
+  cursor:pointer;
+}
+
+.app{
+  width:100vw;
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+}
+
+/* =========================
+   BARRA SUPERIOR
+========================= */
+
+.topbar{
+  height:58px;
+  min-height:58px;
+  background:#0c0e12;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  padding:0 14px;
+  gap:16px;
+  z-index:100;
+}
+
+.logo{
+  display:flex;
+  align-items:center;
+  gap:9px;
+  min-width:175px;
+}
+
+.logo-mark{
+  width:29px;
+  height:29px;
+  border-radius:8px;
+  background:linear-gradient(135deg,#a995ff,#6355ee);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-size:15px;
+  font-weight:900;
+  box-shadow:0 0 20px rgba(139,124,255,.25);
+}
+
+.logo-text{
+  font-weight:800;
+  letter-spacing:-.4px;
+}
+
+.logo-ai{
+  font-size:9px;
+  background:#211d40;
+  color:#aaa0ff;
+  padding:3px 5px;
+  border-radius:4px;
+  font-weight:800;
+}
+
+.top-nav{
+  display:flex;
+  align-items:center;
+  gap:4px;
+  flex:1;
+}
+
+.top-nav button,
+.top-action{
+  background:transparent;
+  color:#9da2ad;
+  padding:8px 10px;
+  border-radius:7px;
+  font-size:12px;
+  transition:.18s;
+}
+
+.top-nav button:hover,
+.top-action:hover{
+  background:#191b21;
+  color:white;
+}
+
+.top-right{
+  display:flex;
+  align-items:center;
+  gap:6px;
+}
+
+.icon-btn{
+  width:32px;
+  height:32px;
+  border-radius:7px;
+  background:#15171c;
+  color:#aeb3bd;
+  border:1px solid #252830;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.icon-btn:hover{
+  background:#20232a;
+  color:#fff;
+}
+
+.primary-btn{
+  background:var(--accent);
+  color:white;
+  border-radius:7px;
+  padding:8px 13px;
+  font-size:12px;
+  font-weight:700;
+  transition:.18s;
+}
+
+.primary-btn:hover{
+  background:#9a8cff;
+  transform:translateY(-1px);
+}
+
+.avatar{
+  width:30px;
+  height:30px;
+  border-radius:50%;
+  background:linear-gradient(135deg,#3d4050,#787d91);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:11px;
+  font-weight:800;
+  margin-left:4px;
+}
+
+/* =========================
+   ÁREA PRINCIPAL
+========================= */
+
+.workspace{
+  flex:1;
+  min-height:0;
+  display:flex;
+}
+
+.sidebar{
+  width:245px;
+  min-width:245px;
+  background:#0d0f13;
+  border-right:1px solid var(--border);
+  display:flex;
+  flex-direction:column;
+  transition:.25s;
+}
+
+.sidebar.collapsed{
+  width:0;
+  min-width:0;
+  overflow:hidden;
+}
+
+.search-box{
+  padding:12px;
+  border-bottom:1px solid var(--border);
+}
+
+.search{
+  width:100%;
+  height:34px;
+  background:#15171c;
+  border:1px solid #272a31;
+  border-radius:7px;
+  color:white;
+  padding:0 10px 0 34px;
+  outline:none;
+  font-size:12px;
+}
+
+.search:focus{
+  border-color:#5148a8;
+}
+
+.search-wrap{
+  position:relative;
+}
+
+.search-icon{
+  position:absolute;
+  left:11px;
+  top:9px;
+  color:#707581;
+  font-size:13px;
+}
+
+.sidebar-scroll{
+  overflow:auto;
+  padding:9px;
+  flex:1;
+}
+
+.sidebar-title{
+  color:#646a76;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:1px;
+  margin:12px 6px 7px;
+}
+
+.side-item{
+  width:100%;
+  min-height:36px;
+  background:transparent;
+  color:#aeb3bd;
+  border-radius:7px;
+  display:flex;
+  align-items:center;
+  gap:9px;
+  padding:7px 9px;
+  margin-bottom:2px;
+  text-align:left;
+  font-size:12px;
+  transition:.15s;
+}
+
+.side-item:hover{
+  background:#191b21;
+  color:#fff;
+}
+
+.side-icon{
+  width:21px;
+  text-align:center;
+  opacity:.8;
+}
+
+.template-card{
+  border:1px solid #282b32;
+  border-radius:8px;
+  overflow:hidden;
+  margin:7px 3px;
+  background:#14161b;
+  cursor:pointer;
+  transition:.18s;
+}
+
+.template-card:hover{
+  border-color:#55506f;
+  transform:translateY(-1px);
+}
+
+.template-preview{
+  height:72px;
+  background:linear-gradient(135deg,#171921,#292d3b);
+  position:relative;
+  overflow:hidden;
+}
+
+.template-preview.ai{
+  background:
+    radial-gradient(circle at 75% 30%,#6454e6,transparent 30%),
+    linear-gradient(135deg,#0a0c13,#20233b);
+}
+
+.template-preview.agency{
+  background:
+    linear-gradient(120deg,#101010,#403426);
+}
+
+.template-preview.portfolio{
+  background:
+    linear-gradient(120deg,#171717,#252525);
+}
+
+.template-preview.startup{
+  background:
+    linear-gradient(120deg,#101a20,#183b4d);
+}
+
+.template-preview.business{
+  background:
+    linear-gradient(120deg,#17191b,#303235);
+}
+
+.template-preview.personal{
+  background:
+    linear-gradient(120deg,#1c141a,#34212f);
+}
+
+.template-mini-line{
+  position:absolute;
+  height:5px;
+  border-radius:5px;
+  background:rgba(255,255,255,.5);
+}
+
+.template-info{
+  padding:8px;
+}
+
+.template-name{
+  font-size:11px;
+  font-weight:700;
+}
+
+.template-category{
+  color:#686e79;
+  font-size:9px;
+  margin-top:2px;
+}
+
+/* =========================
+   CANVAS
+========================= */
+
+.editor{
+  flex:1;
+  min-width:0;
+  background:#0a0b0e;
+  display:flex;
+  flex-direction:column;
+  position:relative;
+}
+
+.editor-toolbar{
+  height:46px;
+  min-height:46px;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  position:relative;
+}
+
+.device-selector{
+  display:flex;
+  gap:2px;
+  background:#111318;
+  padding:3px;
+  border:1px solid #252830;
+  border-radius:7px;
+}
+
+.device{
+  color:#747985;
+  background:transparent;
+  padding:5px 11px;
+  border-radius:5px;
+  font-size:10px;
+}
+
+.device.active{
+  color:#fff;
+  background:#252830;
+}
+
+.canvas-area{
+  flex:1;
+  overflow:auto;
+  padding:35px;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  background:
+    radial-gradient(circle at center,rgba(50,53,64,.15),transparent 45%),
+    #090a0d;
+}
+
+.canvas{
+  width:1440px;
+  min-height:900px;
+  background:white;
+  color:#111;
+  box-shadow:0 15px 60px rgba(0,0,0,.45);
+  transform-origin:top center;
+  transition:width .3s;
+}
+
+.canvas.tablet{
+  width:768px;
+}
+
+.canvas.mobile{
+  width:390px;
+}
+
+.canvas-empty{
+  min-height:700px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+  color:#555;
+}
+
+.empty-box{
+  max-width:420px;
+}
+
+.empty-box h1{
+  color:#20232a;
+  font-size:30px;
+  margin-bottom:9px;
+}
+
+.empty-box p{
+  color:#737984;
+  margin-bottom:20px;
+}
+
+.empty-actions{
+  display:flex;
+  justify-content:center;
+  gap:8px;
+}
+
+.empty-actions button{
+  padding:10px 15px;
+  border-radius:7px;
+  background:#111827;
+  color:white;
+  font-size:12px;
+}
+
+.empty-actions button.secondary{
+  background:#e7e9ed;
+  color:#20242c;
+}
+
+/* =========================
+   ELEMENTOS DO SITE
+========================= */
+
+.site-element{
+  position:relative;
+}
+
+.site-element.selected{
+  outline:2px solid #8b7cff;
+  outline-offset:-2px;
+}
+
+.site-element.selected::after{
+  content:attr(data-type);
+  position:absolute;
+  top:-20px;
+  left:0;
+  background:#8b7cff;
+  color:#fff;
+  padding:3px 6px;
+  border-radius:4px 4px 0 0;
+  font-size:9px;
+  font-weight:700;
+  z-index:20;
+}
+
+.element-actions{
+  display:none;
+  position:absolute;
+  right:4px;
+  top:4px;
+  z-index:30;
+  gap:3px;
+}
+
+.site-element.selected .element-actions{
+  display:flex;
+}
+
+.element-actions button{
+  width:25px;
+  height:25px;
+  background:#17181d;
+  color:#fff;
+  border-radius:5px;
+  font-size:10px;
+}
+
+/* =========================
+   PAINEL DIREITO
+========================= */
+
+.properties{
+  width:285px;
+  min-width:285px;
+  background:#0d0f13;
+  border-left:1px solid var(--border);
+  display:flex;
+  flex-direction:column;
+}
+
+.properties-header{
+  height:46px;
+  min-height:46px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 13px;
+  border-bottom:1px solid var(--border);
+}
+
+.properties-header h3{
+  font-size:11px;
+  letter-spacing:.5px;
+}
+
+.prop-scroll{
+  flex:1;
+  overflow:auto;
+  padding-bottom:20px;
+}
+
+.prop-section{
+  border-bottom:1px solid #20232a;
+  padding:13px;
+}
+
+.prop-title{
+  color:#727884;
+  font-size:9px;
+  font-weight:800;
+  letter-spacing:1px;
+  margin-bottom:10px;
+}
+
+.field{
+  margin-bottom:10px;
+}
+
+.field label{
+  display:block;
+  color:#858b97;
+  font-size:10px;
+  margin-bottom:5px;
+}
+
+.field input,
+.field textarea,
+.field select{
+  width:100%;
+  background:#15171c;
+  border:1px solid #292c34;
+  color:#e7e9ed;
+  border-radius:6px;
+  min-height:31px;
+  padding:6px 8px;
+  outline:none;
+  font-size:11px;
+}
+
+.field textarea{
+  min-height:75px;
+  resize:vertical;
+}
+
+.field input:focus,
+.field textarea:focus,
+.field select:focus{
+  border-color:#5148a8;
+}
+
+.row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:7px;
+}
+
+.color-row{
+  display:flex;
+  gap:7px;
+}
+
+.color-input{
+  width:38px!important;
+  padding:2px!important;
+}
+
+.property-actions{
+  display:flex;
+  gap:5px;
+}
+
+.property-actions button{
+  flex:1;
+  padding:8px;
+  border-radius:6px;
+  background:#1a1c22;
+  color:#b9bec8;
+  font-size:10px;
+}
+
+.property-actions button:hover{
+  background:#272a31;
+  color:#fff;
+}
+
+/* =========================
+   MODAIS
+========================= */
+
+.modal-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.72);
+  backdrop-filter:blur(7px);
+  z-index:500;
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+}
+
+.modal-overlay.open{
+  display:flex;
+}
+
+.modal{
+  width:min(650px,100%);
+  max-height:90vh;
+  overflow:auto;
+  background:#111318;
+  border:1px solid #30343d;
+  border-radius:12px;
+  box-shadow:0 25px 100px rgba(0,0,0,.7);
+  animation:modalIn .2s ease;
+}
+
+@keyframes modalIn{
+  from{
+    opacity:0;
+    transform:translateY(10px) scale(.98);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:17px;
+  border-bottom:1px solid #252830;
+}
+
+.modal-head h2{
+  font-size:16px;
+}
+
+.modal-close{
+  width:30px;
+  height:30px;
+  background:#1b1e24;
+  color:#aaa;
+  border-radius:6px;
+}
+
+.modal-body{
+  padding:17px;
+}
+
+.ai-title{
+  font-size:24px;
+  margin-bottom:6px;
+}
+
+.ai-description{
+  color:#858b98;
+  font-size:12px;
+  margin-bottom:18px;
+}
+
+.prompt{
+  width:100%;
+  min-height:110px;
+  resize:vertical;
+  background:#0b0d11;
+  border:1px solid #30343d;
+  border-radius:8px;
+  padding:12px;
+  color:white;
+  outline:none;
+  font-size:13px;
+}
+
+.prompt:focus{
+  border-color:#6e62d2;
+}
+
+.ai-options{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:8px;
+  margin-top:12px;
+}
+
+.option-group label{
+  color:#737985;
+  display:block;
+  font-size:9px;
+  margin-bottom:5px;
+}
+
+.option-group select{
+  width:100%;
+  background:#181a20;
+  border:1px solid #292d35;
+  color:#ddd;
+  padding:8px;
+  border-radius:6px;
+  font-size:10px;
+}
+
+.modal-footer{
+  display:flex;
+  justify-content:flex-end;
+  gap:7px;
+  padding:13px 17px;
+  border-top:1px solid #252830;
+}
+
+.secondary-btn{
+  background:#1b1e24;
+  color:#c0c4cc;
+  border-radius:7px;
+  padding:8px 13px;
+  font-size:11px;
+}
+
+.export-options{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:10px;
+}
+
+.export-option{
+  padding:18px;
+  border:1px solid #2b2f37;
+  background:#15171c;
+  border-radius:8px;
+  color:#fff;
+  text-align:center;
+}
+
+.export-option strong{
+  display:block;
+  margin-bottom:5px;
+}
+
+.export-option small{
+  color:#777d89;
+}
+
+/* =========================
+   PREVIEW
+========================= */
+
+.preview-mode .topbar,
+.preview-mode .sidebar,
+.preview-mode .properties,
+.preview-mode .editor-toolbar{
+  display:none;
+}
+
+.preview-mode .editor{
+  width:100%;
+}
+
+.preview-mode .canvas-area{
+  padding:0;
+  display:block;
+  overflow:auto;
+}
+
+.preview-mode .canvas{
+  width:100%;
+  min-height:100vh;
+  box-shadow:none;
+}
+
+.exit-preview{
+  display:none;
+  position:fixed;
+  top:15px;
+  right:15px;
+  z-index:999;
+  background:#111;
+  color:#fff;
+  padding:9px 13px;
+  border-radius:7px;
+}
+
+.preview-mode .exit-preview{
+  display:block;
+}
+
+/* =========================
+   TOAST
+========================= */
+
+.toast-container{
+  position:fixed;
+  right:18px;
+  bottom:18px;
+  z-index:1000;
+  display:flex;
+  flex-direction:column;
+  gap:7px;
+}
+
+.toast{
+  background:#17191f;
+  border:1px solid #30343d;
+  color:#e7e9ed;
+  padding:10px 13px;
+  border-radius:7px;
+  font-size:11px;
+  box-shadow:0 10px 35px rgba(0,0,0,.35);
+  animation:toastIn .2s ease;
+}
+
+@keyframes toastIn{
+  from{
+    opacity:0;
+    transform:translateX(15px);
+  }
+  to{
+    opacity:1;
+    transform:none;
+  }
+}
+
+/* =========================
+   SITE TEMPLATES
+========================= */
+
+.site-navbar{
+  height:75px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 7%;
+  border-bottom:1px solid #eee;
+  background:#fff;
+}
+
+.site-brand{
+  font-weight:800;
+  font-size:20px;
+}
+
+.site-links{
+  display:flex;
+  gap:25px;
+  font-size:13px;
+  color:#555;
+}
+
+.site-button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:13px 21px;
+  border-radius:8px;
+  background:#111827;
+  color:#fff;
+  font-weight:700;
+  font-size:13px;
+  border:0;
+}
+
+.hero{
+  padding:110px 8%;
+  text-align:center;
+  background:#fff;
+}
+
+.hero h1{
+  font-size:clamp(42px,6vw,82px);
+  line-height:.95;
+  letter-spacing:-4px;
+  max-width:1000px;
+  margin:auto;
+}
+
+.hero p{
+  color:#667085;
+  font-size:18px;
+  max-width:650px;
+  margin:25px auto;
+  line-height:1.6;
+}
+
+.hero-buttons{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+}
+
+.hero-buttons .secondary{
+  background:#edf0f3;
+  color:#111827;
+}
+
+.section{
+  padding:90px 8%;
+  background:#f8f9fb;
+}
+
+.section.white{
+  background:#fff;
+}
+
+.section-heading{
+  max-width:700px;
+  margin-bottom:40px;
+}
+
+.section-heading h2{
+  font-size:40px;
+  letter-spacing:-2px;
+  margin-bottom:10px;
+}
+
+.section-heading p{
+  color:#667085;
+  line-height:1.6;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.card{
+  background:#fff;
+  border:1px solid #e6e8ec;
+  border-radius:14px;
+  padding:28px;
+}
+
+.card-icon{
+  width:40px;
+  height:40px;
+  border-radius:9px;
+  background:#111827;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:20px;
+}
+
+.card h3{
+  margin-bottom:8px;
+}
+
+.card p{
+  color:#667085;
+  font-size:13px;
+  line-height:1.6;
+}
+
+.pricing{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+}
+
+.price-card{
+  background:#fff;
+  border:1px solid #e2e5e9;
+  padding:30px;
+  border-radius:14px;
+}
+
+.price{
+  font-size:40px;
+  font-weight:800;
+  margin:20px 0;
+}
+
+.cta{
+  padding:100px 8%;
+  text-align:center;
+  background:#111827;
+  color:#fff;
+}
+
+.cta h2{
+  font-size:45px;
+  letter-spacing:-2px;
+  margin-bottom:15px;
+}
+
+.cta p{
+  color:#aab1bd;
+  margin-bottom:25px;
+}
+
+.cta .site-button{
+  background:#fff;
+  color:#111827;
+}
+
+.site-footer{
+  padding:40px 8%;
+  background:#0c1017;
+  color:#fff;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.site-footer span{
+  color:#858d9a;
+  font-size:12px;
+}
+
+/* RESPONSIVO */
+
+@media(max-width:1000px){
+  .sidebar{
+    width:210px;
+    min-width:210px;
+  }
+
+  .properties{
+    width:245px;
+    min-width:245px;
+  }
+
+  .top-nav{
+    display:none;
+  }
+
+  .cards,
+  .pricing{
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:700px){
+  .sidebar,
+  .properties{
+    display:none;
+  }
+
+  .topbar{
+    padding:0 8px;
+  }
+
+  .logo{
+    min-width:auto;
+  }
+
+  .top-right .icon-btn:nth-child(-n+2){
+    display:none;
+  }
+
+  .canvas-area{
+    padding:15px;
+  }
+}
 </style>
 </head>
-<body>
-<div class="app">
-<div class="glow a"></div><div class="glow b"></div>
-<main id="app"></main>
-<nav><div class="nav-inner">
-<button class="nav-btn" data-page="dashboard"><span>🧠</span>NEURAL</button>
-<button class="nav-btn" data-page="ai"><span>✦</span>VOID IA</button>
-<button class="nav-btn" data-page="journal"><span>📖</span>DIÁRIO</button>
-<button class="nav-btn" data-page="stats"><span>▥</span>DADOS</button>
-<button class="nav-btn" data-page="profile"><span>◉</span>PERFIL</button>
-<button class="nav-btn" data-page="void"><span>○</span>VOID</button>
-</div></nav>
-</div>
-<script>
-const state={page:'dashboard',entries:JSON.parse(localStorage.getItem('voidmind_journal')||'[]')};
 
-function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}
-function header(icon,title,kicker){return `<div class="header"><div class="container"><div class="page-head" style="margin:0"><div class="page-icon">${icon}</div><div><div class="page-title">${title}</div><div class="kicker">${kicker}</div></div></div></div></div>`}
-function cardMetric(label,value,icon,color){return `<div class="card"><div class="metric"><div class="metric-icon ${color}" style="background:rgba(96,165,250,.08)">${icon}</div><div><div class="metric-label">${label}</div><div class="metric-value ${color}">${value}%</div></div></div><div class="progress"><div class="bar" style="width:${value}%;background:linear-gradient(90deg,${colorHex(color)},#a855f7)"></div></div></div>`}
-function colorHex(c){return {blue:'#60a5fa',purple:'#a78bfa',pink:'#f472b6',cyan:'#22d3ee',violet:'#c4b5fd',indigo:'#818cf8'}[c]||'#a78bfa'}
-function canvasChart(id,data,labels,colors){setTimeout(()=>{const c=document.getElementById(id);if(!c)return;const ctx=c.getContext('2d'),dpr=devicePixelRatio||1,w=c.clientWidth,h=c.clientHeight;c.width=w*dpr;c.height=h*dpr;ctx.scale(dpr,dpr);ctx.clearRect(0,0,w,h);ctx.strokeStyle='rgba(255,255,255,.07)';ctx.lineWidth=1;for(let y=20;y<h-20;y+=(h-40)/4){ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(w,y);ctx.stroke()} data.forEach((series,si)=>{ctx.strokeStyle=colors[si];ctx.lineWidth=2.5;ctx.shadowBlur=10;ctx.shadowColor=colors[si];ctx.beginPath();series.forEach((v,i)=>{const x=30+i*(w-55)/(series.length-1),y=h-28-v*(h-55)/100;i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.stroke();ctx.shadowBlur=0;series.forEach((v,i)=>{const x=30+i*(w-55)/(series.length-1),y=h-28-v*(h-55)/100;ctx.fillStyle=colors[si];ctx.beginPath();ctx.arc(x,y,3.5,0,Math.PI*2);ctx.fill()});});ctx.fillStyle='#74798a';ctx.font='11px system-ui';labels.forEach((l,i)=>ctx.fillText(l,20+i*(w-55)/(labels.length-1),h-7))},20)}
-function dashboard(){return `<div class="header"><div class="container"><div class="toprow"><div><div class="brand"><div class="brand-icon">🧠</div><div class="title">VoidMind Omega System</div></div><div class="kicker">PAINEL NEURAL • MONITORAMENTO EM TEMPO REAL</div></div><div class="clock"><span id="liveClock">--:--:--</span><div class="date" id="liveDate"></div></div></div><div class="status"><div class="status-left"><div class="orb-small">◉</div><div><b>USUÁRIO EM OBSERVAÇÃO</b><div class="muted">Consciência neural sincronizada • evolução estável</div></div></div><span class="badge">● ONLINE</span></div></div></div>
-<div class="container page">
-<div class="grid stats-grid">
-${cardMetric('ENERGIA MENTAL',72,'ϟ','blue')}${cardMetric('PRODUTIVIDADE',88,'◎','purple')}${cardMetric('NÍVEL DE FOCO',85,'◉','cyan')}${cardMetric('CONSISTÊNCIA',76,'◌','pink')}${cardMetric('ESTABILIDADE',78,'≈','violet')}${cardMetric('EVOLUÇÃO COGNITIVA',90,'↗','indigo')}
+<body>
+
+<div class="app" id="app">
+
+  <!-- ================= TOPBAR ================= -->
+
+  <header class="topbar">
+
+    <div class="logo">
+      <div class="logo-mark">O</div>
+      <div class="logo-text">OriginKit</div>
+      <div class="logo-ai">AI</div>
+    </div>
+
+    <nav class="top-nav">
+      <button onclick="showPanel('componentes')">Componentes</button>
+      <button onclick="showPanel('secoes')">Seções</button>
+      <button onclick="showPanel('modelos')">Modelos</button>
+      <button onclick="showPanel('recursos')">Recursos</button>
+    </nav>
+
+    <div class="top-right">
+
+      <button class="icon-btn" title="Desfazer" onclick="undo()">↶</button>
+      <button class="icon-btn" title="Refazer" onclick="redo()">↷</button>
+
+      <button class="top-action" onclick="togglePreview()">
+        Visualizar
+      </button>
+
+      <button class="top-action" onclick="openAI()">
+        ✦ IA
+      </button>
+
+      <button class="top-action" onclick="saveProject()">
+        Salvar
+      </button>
+
+      <button class="top-action" onclick="openExport()">
+        Exportar
+      </button>
+
+      <button class="primary-btn" onclick="publishProject()">
+        Publicar
+      </button>
+
+      <div class="avatar">SV</div>
+
+    </div>
+
+  </header>
+
+  <!-- ================= WORKSPACE ================= -->
+
+  <main class="workspace">
+
+    <!-- SIDEBAR -->
+
+    <aside class="sidebar" id="sidebar">
+
+      <div class="search-box">
+
+        <div class="search-wrap">
+          <span class="search-icon">⌕</span>
+          <input
+            id="searchInput"
+            class="search"
+            placeholder="Pesquisar componentes..."
+            oninput="searchLibrary(this.value)"
+          >
+        </div>
+
+      </div>
+
+      <div class="sidebar-scroll">
+
+        <div id="library">
+
+          <div class="sidebar-title">COMPONENTES</div>
+
+          <button class="side-item" data-search="heading título texto"
+            onclick="addComponent('heading')">
+            <span class="side-icon">T</span>
+            Título
+          </button>
+
+          <button class="side-item" data-search="paragraph parágrafo texto"
+            onclick="addComponent('paragraph')">
+            <span class="side-icon">¶</span>
+            Parágrafo
+          </button>
+
+          <button class="side-item" data-search="button botão"
+            onclick="addComponent('button')">
+            <span class="side-icon">▣</span>
+            Botão
+          </button>
+
+          <button class="side-item" data-search="image imagem"
+            onclick="addComponent('image')">
+            <span class="side-icon">▧</span>
+            Imagem
+          </button>
+
+          <button class="side-item" data-search="card cartão"
+            onclick="addComponent('card')">
+            <span class="side-icon">▦</span>
+            Cartão
+          </button>
+
+          <button class="side-item" data-search="badge etiqueta"
+            onclick="addComponent('badge')">
+            <span class="side-icon">◇</span>
+            Etiqueta
+          </button>
+
+          <button class="side-item" data-search="input campo"
+            onclick="addComponent('input')">
+            <span class="side-icon">▭</span>
+            Campo
+          </button>
+
+          <button class="side-item" data-search="divider divisor"
+            onclick="addComponent('divider')">
+            <span class="side-icon">―</span>
+            Divisor
+          </button>
+
+          <button class="side-item" data-search="spacer espaço"
+            onclick="addComponent('spacer')">
+            <span class="side-icon">↕</span>
+            Espaçador
+          </button>
+
+          <div class="sidebar-title">SEÇÕES</div>
+
+          <button class="side-item" data-search="hero início principal"
+            onclick="addSection('hero')">
+            <span class="side-icon">◆</span>
+            Hero
+          </button>
+
+          <button class="side-item" data-search="features recursos"
+            onclick="addSection('features')">
+            <span class="side-icon">✦</span>
+            Recursos
+          </button>
+
+          <button class="side-item" data-search="pricing preços"
+            onclick="addSection('pricing')">
+            <span class="side-icon">$</span>
+            Preços
+          </button>
+
+          <button class="side-item" data-search="testimonials depoimentos"
+            onclick="addSection('testimonials')">
+            <span class="side-icon">❝</span>
+            Depoimentos
+          </button>
+
+          <button class="side-item" data-search="faq perguntas"
+            onclick="addSection('faq')">
+            <span class="side-icon">?</span>
+            FAQ
+          </button>
+
+          <button class="side-item" data-search="cta chamada ação"
+            onclick="addSection('cta')">
+            <span class="side-icon">→</span>
+            Chamada para ação
+          </button>
+
+          <div class="sidebar-title">MODELOS</div>
+
+          <div id="templates">
+
+            <div class="template-card" onclick="applyTemplate('ai')">
+              <div class="template-preview ai">
+                <span class="template-mini-line" style="width:55%;left:22%;top:25%"></span>
+                <span class="template-mini-line" style="width:35%;left:32%;top:42%"></span>
+                <span class="template-mini-line" style="width:20%;left:40%;top:60%"></span>
+              </div>
+              <div class="template-info">
+                <div class="template-name">SaaS de IA</div>
+                <div class="template-category">Inteligência artificial</div>
+              </div>
+            </div>
+
+            <div class="template-card" onclick="applyTemplate('agency')">
+              <div class="template-preview agency">
+                <span class="template-mini-line" style="width:70%;left:10%;top:28%"></span>
+                <span class="template-mini-line" style="width:45%;left:10%;top:48%"></span>
+              </div>
+              <div class="template-info">
+                <div class="template-name">Agência Criativa</div>
+                <div class="template-category">Agência</div>
+              </div>
+            </div>
+
+            <div class="template-card" onclick="applyTemplate('portfolio')">
+              <div class="template-preview portfolio">
+                <span class="template-mini-line" style="width:40%;left:10%;top:20%"></span>
+                <span class="template-mini-line" style="width:70%;left:10%;top:45%"></span>
+              </div>
+              <div class="template-info">
+                <div class="template-name">Portfólio</div>
+                <div class="template-category">Criativo</div>
+              </div>
+            </div>
+
+            <div class="template-card" onclick="applyTemplate('startup')">
+              <div class="template-preview startup">
+                <span class="template-mini-line" style="width:50%;left:25%;top:20%"></span>
+                <span class="template-mini-line" style="width:65%;left:18%;top:45%"></span>
+              </div>
+              <div class="template-info">
+                <div class="template-name">Startup</div>
+                <div class="template-category">Tecnologia</div>
+              </div>
+            </div>
+
+            <div class="template-card" onclick="applyTemplate('business')">
+              <div class="template-preview business">
+                <span class="template-mini-line" style="width:60%;left:20%;top:30%"></span>
+                <span class="template-mini-line" style="width:35%;left:32%;top:50%"></span>
+              </div>
+              <div class="template-info">
+                <div class="template-name">Empresa</div>
+                <div class="template-category">Corporativo</div>
+              </div>
+            </div>
+
+            <div class="template-card" onclick="applyTemplate('personal')">
+              <div class="template-preview personal">
+                <span class="template-mini-line" style="width:45%;left:10%;top:30%"></span>
+                <span class="template-mini-line" style="width:65%;left:10%;top:50%"></span>
+              </div>
+              <div class="template-info">
+                <div class="template-name">Página Pessoal</div>
+                <div class="template-category">Pessoal</div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="sidebar-title">CAMADAS</div>
+
+          <div id="layers"></div>
+
+        </div>
+
+      </div>
+
+    </aside>
+
+    <!-- EDITOR -->
+
+    <section class="editor">
+
+      <div class="editor-toolbar">
+
+        <div class="device-selector">
+
+          <button class="device active"
+            onclick="setViewport('desktop',this)">
+            Desktop
+          </button>
+
+          <button class="device"
+            onclick="setViewport('tablet',this)">
+            Tablet
+          </button>
+
+          <button class="device"
+            onclick="setViewport('mobile',this)">
+            Celular
+          </button>
+
+        </div>
+
+      </div>
+
+      <div class="canvas-area">
+
+        <div id="canvas" class="canvas">
+
+          <div class="canvas-empty" id="emptyState">
+
+            <div class="empty-box">
+
+              <h1>Comece a criar</h1>
+
+              <p>
+                Escolha um modelo ou comece uma página do zero.
+              </p>
+
+              <div class="empty-actions">
+
+                <button onclick="openTemplates()">
+                  Ver modelos
+                </button>
+
+                <button
+                  class="secondary"
+                  onclick="openAI()">
+                  Gerar com IA
+                </button>
+
+                <button
+                  class="secondary"
+                  onclick="startBlank()">
+                  Começar vazio
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- PROPRIEDADES -->
+
+    <aside class="properties">
+
+      <div class="properties-header">
+
+        <h3>PROPRIEDADES</h3>
+
+        <button class="icon-btn"
+          onclick="clearSelection()">
+          ×
+        </button>
+
+      </div>
+
+      <div class="prop-scroll" id="propertiesPanel">
+
+        <div class="prop-section">
+
+          <div class="prop-title">
+            PÁGINA
+          </div>
+
+          <div class="field">
+
+            <label>Nome do projeto</label>
+
+            <input
+              id="projectName"
+              value="Projeto sem nome"
+              oninput="updateProjectName(this.value)"
+            >
+
+          </div>
+
+          <div class="field">
+
+            <label>Cor de fundo</label>
+
+            <div class="color-row">
+
+              <input
+                type="color"
+                class="color-input"
+                value="#ffffff"
+                onchange="changeCanvasBackground(this.value)"
+              >
+
+              <input
+                value="#ffffff"
+                onchange="changeCanvasBackground(this.value)"
+              >
+
+            </div>
+
+          </div>
+
+        </div>
+
+        <div id="selectedProperties">
+
+          <div class="prop-section">
+
+            <div class="prop-title">
+              ELEMENTO
+            </div>
+
+            <p style="color:#666d78;font-size:11px;line-height:1.5">
+              Selecione um elemento no canvas para editar suas propriedades.
+            </p>
+
+          </div>
+
+        </div>
+
+      </div>
+
+    </aside>
+
+  </main>
+
 </div>
-<div class="card section"><div class="section-head"><div><div class="section-title">Atividade mental</div><div class="muted">Oscilação cognitiva ao longo do dia</div></div><span class="purple">● LIVE</span></div><canvas class="chart" id="mentalChart"></canvas><div class="legend"><span><i class="dot" style="background:#60a5fa"></i>Nível mental</span></div></div>
-<div class="grid two section"><div class="card"><div class="section-title">Leitura neural</div><div class="muted">Índices atuais</div><div class="small-grid" style="margin-top:15px"><div class="mini"><div class="muted">CLAREZA</div><b class="blue">90%</b></div><div class="mini"><div class="muted">FOCO</div><b class="pink">85%</b></div><div class="mini"><div class="muted">ENERGIA</div><b class="purple">72%</b></div></div></div><div class="card analysis"><div class="section-title">Análise do sistema</div><p class="muted" style="line-height:1.7">Padrões atuais indicam desempenho cognitivo elevado, estabilidade emocional moderada e necessidade de preservar períodos de baixa estimulação.</p></div></div>
-</div>`}
-const aiMessages=["Detectando padrões elevados de introspecção...","Sua evolução cognitiva continua superando os parâmetros base.","Níveis de exaustão social indicam necessidade de solidão.","Monitorando deterioração emocional coletiva em andamento.","Índice de clareza mental demonstra desempenho ótimo.","Reconhecimento de padrões: aumento de contemplação filosófica detectado.","Seus caminhos neurais demonstram adaptabilidade excepcional.","Analisando mudanças comportamentais em tempo real.","Consciência void expandindo além dos limiares mensuráveis.","Resiliência psicológica permanece dentro do intervalo estável.","Detectando flutuações sutis de ansiedade no ambiente.","Distribuição de carga cognitiva ótima para as tarefas atuais.","Observando a lenta descida da humanidade ao entorpecimento digital."];
-function ai(){return `${header('✦','VOID IA','INTERFACE DE CONSCIÊNCIA NEURAL')}<div class="container page"><div class="hero-orb"><div class="rings"></div><div class="core"></div></div><div class="card ai-box"><div class="muted" style="letter-spacing:.18em;margin-bottom:10px">ANÁLISE AUTÔNOMA</div><div id="aiMessage" class="ai-message"></div><span class="cursor">▌</span></div><div class="grid two section"><div class="card"><div class="section-title purple">◈ Padrões detectados</div><p class="muted" style="line-height:1.8">Introspecção elevada<br>Adaptabilidade cognitiva<br>Estabilidade dentro dos limites</p></div><div class="card"><div class="section-title cyan">◌ Estado neural</div><p class="muted" style="line-height:1.8">Sincronização: 98.4%<br>Latência: 0.03ms<br>Consciência: ATIVA</p></div></div></div>`}
-function analyze(t){let s=t.toLowerCase();if(/ansiedade|ansioso|preocup/.test(s))return['Ansiedade',75];if(/triste|sozinho|vazio/.test(s))return['Melancolia',68];if(/feliz|alegre|bem/.test(s))return['Alegria',85];if(/raiva|irritado|bravo/.test(s))return['Raiva',70];if(/calm|paz|tranquil/.test(s))return['Serenidade',90];if(/pens|reflet|contempla/.test(s))return['Contemplação',82];return['Neutro',50]}
-function journal(){return `${header('📖','DIÁRIO VOID','REGISTRO E ANÁLISE EMOCIONAL')}<div class="container page"><div class="card"><div class="section-title">Novo registro</div><div class="muted" style="margin:5px 0 14px">Escreva sem filtro. O sistema fará uma leitura simples de padrões.</div><textarea id="journalText" placeholder="O que está passando pela sua mente?"></textarea><div style="display:flex;justify-content:flex-end;margin-top:12px"><button class="btn" onclick="saveEntry()">◈ ANALISAR E SALVAR</button></div></div><div id="entries" class="entries">${renderEntries()}</div></div>`}
-function renderEntries(){if(!state.entries.length)return `<div class="card" style="text-align:center;padding:45px"><div style="font-size:32px;opacity:.35">∅</div><div class="muted">Nenhum registro ainda.</div></div>`;return state.entries.map(e=>`<div class="card entry"><button class="delete" onclick="deleteEntry('${e.id}')">×</button><div class="entry-meta"><span>${new Date(e.timestamp).toLocaleDateString('pt-BR')} • ${new Date(e.timestamp).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'})}</span><span class="emotion">${esc(e.emotion)} · ${e.intensity}%</span></div><p>${esc(e.content)}</p><div class="progress"><div class="bar" style="width:${e.intensity}%"></div></div></div>`).join('')}
-function saveEntry(){const ta=document.getElementById('journalText');if(!ta||!ta.value.trim())return;const btn=document.querySelector('.btn');btn.disabled=true;btn.textContent='ANALISANDO...';setTimeout(()=>{const [emotion,intensity]=analyze(ta.value);state.entries.unshift({id:String(Date.now()),content:ta.value.trim(),timestamp:Date.now(),emotion,intensity});localStorage.setItem('voidmind_journal',JSON.stringify(state.entries));render();},900)}
-function deleteEntry(id){state.entries=state.entries.filter(e=>e.id!==id);localStorage.setItem('voidmind_journal',JSON.stringify(state.entries));render()}
-function stats(){return `${header('▥','ESTATÍSTICAS MENTAIS','RASTREAMENTO DE EVOLUÇÃO PSICOLÓGICA')}<div class="container page"><div class="grid stats-grid">${cardMetric('COGNITIVO',87,'🧠','blue')}${cardMetric('ENERGIA',72,'ϟ','purple')}${cardMetric('FOCO',85,'◉','pink')}${cardMetric('ESTABILIDADE',84,'◌','cyan')}</div><div class="card section"><div class="section-title">Evolução psicológica semanal</div><div class="muted">Rastreamento mental multidimensional</div><canvas class="chart" id="weekChart"></canvas><div class="legend"><span><i class="dot" style="background:#f472b6"></i>Foco</span><span><i class="dot" style="background:#a78bfa"></i>Energia</span><span><i class="dot" style="background:#22d3ee"></i>Estabilidade</span></div></div><div class="grid two section"><div class="card"><div class="section-title">Detecção de ansiedade</div><div class="muted">Monitoramento 24 horas</div><canvas class="chart" id="anxietyChart"></canvas></div><div class="card"><div class="section-title">Perfil cognitivo</div><div class="muted">Capacidades neurais</div><div class="attr" style="margin-top:18px">${[['Lógica',88],['Criatividade',92],['Memória',78],['Processamento',85],['Análise',90],['Intuição',82]].map(x=>`<div class="attr-row"><span>${x[0]}</span><div class="progress"><div class="bar" style="width:${x[1]}%;background:#3b82f6"></div></div><b class="blue">${x[1]}</b></div>`).join('')}</div></div></div><div class="card section"><div class="section-title">Padrão de produtividade diária</div><div class="muted">Horários de pico de desempenho</div><canvas class="chart" id="prodChart"></canvas></div></div>`}
-function profile(){const attrs=[['Foco Mental',85,'cyan'],['Disciplina',78,'purple'],['Clareza',90,'blue'],['Energia',72,'pink'],['Resiliência',88,'violet'],['Evolução',92,'indigo']];const ach=[['🧠','Pioneiro Neural',1],['◉','Caminhante do Vazio',1],['◎','Mestre da Mente',1],['✦','Pensador Profundo',0],['↗','Sábio da Evolução',0],['ϟ','Buscador de Clareza',1]];return `${header('◉','PERFIL NEURAL','MATRIZ DE IDENTIDADE PSICOLÓGICA')}<div class="container page"><div class="card"><div class="profile"><div class="avatar">◉</div><div><div class="muted">NÍVEL NEURAL</div><div class="level"><strong>82</strong> / 100</div><div class="xp"><div class="muted">15.420 / 20.000 XP</div><div class="progress"><div class="bar" style="width:77.1%"></div></div></div></div></div></div><div class="card section"><div class="section-title">Atributos cognitivos</div><div class="attr" style="margin-top:18px">${attrs.map(a=>`<div class="attr-row"><span>${a[0]}</span><div class="progress"><div class="bar" style="width:${a[1]}%;background:${colorHex(a[2])}"></div></div><b class="${a[2]}">${a[1]}</b></div>`).join('')}</div></div><div class="card section"><div class="section-title">Conquistas</div><div class="grid achievements" style="margin-top:15px">${ach.map(a=>`<div class="achievement ${a[2]?'':'locked'}"><div class="aicon">${a[0]}</div><div class="muted">${a[1]}</div></div>`).join('')}</div></div></div>`}
-const quotes=["No vazio, nos encontramos.","O silêncio fala mais alto que o ruído.","A mente em repouso enxerga tudo.","A solidão é a forja da sabedoria.","Na escuridão, a clareza emerge.","O observador torna-se o observado.","A consciência flui como a água.","O tempo é uma ilusão da mente inquieta.","No vazio, existem possibilidades infinitas.","Os pensamentos mais profundos florescem no silêncio.","Somos o universo se experienciando.","O isolamento revela a verdade.","O vazio contém tudo.","A quietude é a maior professora.","Na ausência do ruído, a sabedoria fala."];
-let quoteIndex=0;
-function voidPage(){return `<div class="void-mode"><div><div class="void-date" id="voidDate"></div><div class="void-clock" id="voidClock"></div><div class="quote" id="voidQuote">${quotes[quoteIndex]}</div><button class="void-toggle" onclick="this.textContent=this.textContent.includes('SILÊNCIO')?'🔊 ÁUDIO ATIVO':'🔇 MODO SILÊNCIO'">🔇 MODO SILÊNCIO</button></div></div>`}
-function render(){let content=state.page==='dashboard'?dashboard():state.page==='ai'?ai():state.page==='journal'?journal():state.page==='stats'?stats():state.page==='profile'?profile():voidPage();document.getElementById('app').innerHTML=content;document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.page===state.page));if(state.page==='dashboard'){updateClock();canvasChart('mentalChart',[[65,45,75,85,70,60]],['00h','04h','08h','12h','16h','20h'],['#60a5fa'])}if(state.page==='stats'){canvasChart('weekChart',[[75,82,78,88,85,72,68],[68,72,75,80,76,70,65],[82,78,85,80,88,90,92]],['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'],['#f472b6','#a78bfa','#22d3ee']);canvasChart('anxietyChart',[[35,25,45,55,50,40,38]],['00','04','08','12','16','20','24'],['#facc15']);canvasChart('prodChart',[[40,75,85,70,80,90,65]],['06','09','12','15','18','21','00'],['#818cf8'])}if(state.page==='ai')startAI();if(state.page==='void')startVoid()}
-function updateClock(){const d=new Date(),t=d.toLocaleTimeString('pt-BR'),date=d.toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'}).toUpperCase();const a=document.getElementById('liveClock'),b=document.getElementById('liveDate');if(a)a.textContent=t;if(b)b.textContent=date}
-let clockTimer;function startAI(){let i=0,c=0;const el=document.getElementById('aiMessage');clearInterval(window.aiTimer);window.aiTimer=setInterval(()=>{if(!el)return clearInterval(window.aiTimer);const msg=aiMessages[i];el.textContent=msg.slice(0,c++);if(c>msg.length){c=0;i=(i+1)%aiMessages.length}},55)}
-function startVoid(){clearInterval(window.voidTimer);function tick(){const d=new Date(),t=d.toLocaleTimeString('pt-BR');const c=document.getElementById('voidClock'),dt=document.getElementById('voidDate');if(c)c.textContent=t;if(dt)dt.textContent=d.toLocaleDateString('pt-BR',{weekday:'long',year:'numeric',month:'long',day:'numeric'});};tick();window.voidTimer=setInterval(tick,1000);clearInterval(window.quoteTimer);window.quoteTimer=setInterval(()=>{quoteIndex=(quoteIndex+1)%quotes.length;const q=document.getElementById('voidQuote');if(q)q.textContent=quotes[quoteIndex]},15000)}
-document.querySelectorAll('.nav-btn').forEach(b=>b.addEventListener('click',()=>{state.page=b.dataset.page;render();window.scrollTo({top:0,behavior:'smooth'})}));
-render();setInterval(()=>{if(state.page==='dashboard')updateClock()},1000);
+
+<button class="exit-preview" onclick="togglePreview()">
+  Sair da visualização
+</button>
+
+<!-- ================= IA ================= -->
+
+<div class="modal-overlay" id="aiModal">
+
+  <div class="modal">
+
+    <div class="modal-head">
+
+      <h2>✦ Gerar com IA</h2>
+
+      <button
+        class="modal-close"
+        onclick="closeModal('aiModal')">
+        ×
+      </button>
+
+    </div>
+
+    <div class="modal-body">
+
+      <div class="ai-title">
+        Descreva seu site
+      </div>
+
+      <div class="ai-description">
+        Explique o que você quer criar. A IA local interpretará
+        algumas palavras-chave e montará uma estrutura automaticamente.
+      </div>
+
+      <textarea
+        id="aiPrompt"
+        class="prompt"
+        placeholder="Ex: Crie uma landing page futurista para uma startup de inteligência artificial."
+      ></textarea>
+
+      <div class="ai-options">
+
+        <div class="option-group">
+
+          <label>ESTILO</label>
+
+          <select id="aiStyle">
+            <option>Moderno</option>
+            <option>Minimalista</option>
+            <option>Futurista</option>
+            <option>Elegante</option>
+            <option>Brutalista</option>
+            <option>Glass</option>
+            <option>Corporativo</option>
+          </select>
+
+        </div>
+
+        <div class="option-group">
+
+          <label>CORES</label>
+
+          <select id="aiColor">
+            <option>Monocromático</option>
+            <option>Azul</option>
+            <option>Roxo</option>
+            <option>Verde</option>
+            <option>Laranja</option>
+          </select>
+
+        </div>
+
+        <div class="option-group">
+
+          <label>LAYOUT</label>
+
+          <select id="aiLayout">
+            <option>Centralizado</option>
+            <option>Dividido</option>
+            <option>Editorial</option>
+            <option>Grade</option>
+          </select>
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="modal-footer">
+
+      <button
+        class="secondary-btn"
+        onclick="closeModal('aiModal')">
+        Cancelar
+      </button>
+
+      <button
+        class="primary-btn"
+        onclick="generateWithAI()">
+        ✦ Gerar página
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+<!-- ================= EXPORTAR ================= -->
+
+<div class="modal-overlay" id="exportModal">
+
+  <div class="modal">
+
+    <div class="modal-head">
+
+      <h2>Exportar projeto</h2>
+
+      <button
+        class="modal-close"
+        onclick="closeModal('exportModal')">
+        ×
+      </button>
+
+    </div>
+
+    <div class="modal-body">
+
+      <p style="color:#888;font-size:12px;margin-bottom:15px">
+        Exporte somente o site criado, sem o editor OriginKit.
+      </p>
+
+      <div class="export-options">
+
+        <button class="export-option"
+          onclick="exportHTML()">
+          <strong>HTML</strong>
+          <small>Baixar página</small>
+        </button>
+
+        <button class="export-option"
+          onclick="exportCSS()">
+          <strong>CSS</strong>
+          <small>Baixar estilos</small>
+        </button>
+
+        <button class="export-option"
+          onclick="exportJS()">
+          <strong>JS</strong>
+          <small>Baixar JavaScript</small>
+        </button>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+<div class="toast-container" id="toastContainer"></div>
+
+<script>
+
+/* =====================================================
+   ESTADO CENTRAL
+===================================================== */
+
+const state = {
+
+  project:{
+    name:"Projeto sem nome",
+    background:"#ffffff"
+  },
+
+  elements:[],
+
+  selectedElement:null,
+
+  viewport:"desktop",
+
+  history:[],
+
+  historyIndex:-1,
+
+  preview:false
+
+};
+
+
+/* =====================================================
+   UTILIDADES
+===================================================== */
+
+function uid(){
+
+  return "el_" +
+    Date.now().toString(36) +
+    "_" +
+    Math.random().toString(36).slice(2,8);
+
+}
+
+
+function clone(obj){
+
+  return JSON.parse(JSON.stringify(obj));
+
+}
+
+
+function toast(message){
+
+  const container =
+    document.getElementById("toastContainer");
+
+  const el =
+    document.createElement("div");
+
+  el.className="toast";
+
+  el.textContent=message;
+
+  container.appendChild(el);
+
+  setTimeout(()=>{
+
+    el.remove();
+
+  },2500);
+
+}
+
+
+/* =====================================================
+   HISTÓRICO
+===================================================== */
+
+function snapshot(){
+
+  const data = clone(state.elements);
+
+  state.history =
+    state.history.slice(0,state.historyIndex+1);
+
+  state.history.push(data);
+
+  if(state.history.length>30){
+
+    state.history.shift();
+
+  }
+
+  state.historyIndex =
+    state.history.length-1;
+
+}
+
+
+function undo(){
+
+  if(state.historyIndex<=0){
+
+    toast("Nada para desfazer.");
+
+    return;
+
+  }
+
+  state.historyIndex--;
+
+  state.elements =
+    clone(state.history[state.historyIndex]);
+
+  state.selectedElement=null;
+
+  render();
+
+  toast("Alteração desfeita.");
+
+}
+
+
+function redo(){
+
+  if(
+    state.historyIndex >=
+    state.history.length-1
+  ){
+
+    toast("Nada para refazer.");
+
+    return;
+
+  }
+
+  state.historyIndex++;
+
+  state.elements =
+    clone(state.history[state.historyIndex]);
+
+  render();
+
+  toast("Alteração refeita.");
+
+}
+
+
+/* =====================================================
+   RENDER
+===================================================== */
+
+function render(){
+
+  const canvas =
+    document.getElementById("canvas");
+
+  const empty =
+    document.getElementById("emptyState");
+
+  canvas.innerHTML="";
+
+  if(state.elements.length===0){
+
+    canvas.appendChild(empty);
+
+    empty.style.display="flex";
+
+  }else{
+
+    empty.style.display="none";
+
+    state.elements.forEach(element=>{
+
+      const node =
+        createElementNode(element);
+
+      canvas.appendChild(node);
+
+    });
+
+  }
+
+  canvas.style.background =
+    state.project.background;
+
+  renderProperties();
+
+  renderLayers();
+
+}
+
+
+function createElementNode(element){
+
+  const wrapper =
+    document.createElement("div");
+
+  wrapper.className="site-element";
+
+  wrapper.dataset.id=element.id;
+
+  wrapper.dataset.type=element.type;
+
+  if(
+    state.selectedElement===element.id
+  ){
+
+    wrapper.classList.add("selected");
+
+  }
+
+  const actions =
+    document.createElement("div");
+
+  actions.className="element-actions";
+
+  actions.innerHTML=`
+
+    <button
+      title="Mover para cima"
+      onclick="event.stopPropagation();moveElement('${element.id}',-1)">
+      ↑
+    </button>
+
+    <button
+      title="Mover para baixo"
+      onclick="event.stopPropagation();moveElement('${element.id}',1)">
+      ↓
+    </button>
+
+    <button
+      title="Duplicar"
+      onclick="event.stopPropagation();duplicateElement('${element.id}')">
+      ⧉
+    </button>
+
+    <button
+      title="Excluir"
+      onclick="event.stopPropagation();deleteElement('${element.id}')">
+      ×
+    </button>
+
+  `;
+
+  wrapper.appendChild(actions);
+
+  const content =
+    renderElementContent(element);
+
+  wrapper.insertAdjacentHTML(
+    "beforeend",
+    content
+  );
+
+  wrapper.addEventListener(
+    "click",
+    function(e){
+
+      if(
+        e.target.closest(".element-actions")
+      ){
+
+        return;
+
+      }
+
+      e.stopPropagation();
+
+      selectElement(element.id);
+
+    }
+  );
+
+  wrapper.addEventListener(
+    "dblclick",
+    function(e){
+
+      const text =
+        wrapper.querySelector(
+          "[contenteditable]"
+        );
+
+      if(text){
+
+        text.focus();
+
+        document.execCommand(
+          "selectAll",
+          false,
+          null
+        );
+
+      }
+
+    }
+  );
+
+  wrapper.draggable=true;
+
+  wrapper.addEventListener(
+    "dragstart",
+    function(e){
+
+      e.dataTransfer.setData(
+        "element-id",
+        element.id
+      );
+
+    }
+  );
+
+  wrapper.addEventListener(
+    "dragover",
+    function(e){
+
+      e.preventDefault();
+
+    }
+  );
+
+  wrapper.addEventListener(
+    "drop",
+    function(e){
+
+      e.preventDefault();
+
+      const movingId =
+        e.dataTransfer.getData(
+          "element-id"
+        );
+
+      if(
+        movingId &&
+        movingId!==element.id
+      ){
+
+        reorderElement(
+          movingId,
+          element.id
+        );
+
+      }
+
+    }
+  );
+
+  return wrapper;
+
+}
+
+
+/* =====================================================
+   CONTEÚDO DOS ELEMENTOS
+===================================================== */
+
+function renderElementContent(element){
+
+  const p =
+    element.props || {};
+
+  let html="";
+
+  if(element.type==="heading"){
+
+    html=`
+
+      <div
+        contenteditable="true"
+        style="
+          padding:35px 8%;
+          font-size:${p.fontSize || 54}px;
+          font-weight:${p.weight || 800};
+          color:${p.color || "#111827"};
+          text-align:${p.align || "left"};
+          line-height:1.05;
+          outline:none;
+        "
+        oninput="updateText('${element.id}',this.innerText)"
+      >
+        ${escapeHTML(p.text || "Seu título aqui")}
+      </div>
+
+    `;
+
+  }
+
+  else if(element.type==="paragraph"){
+
+    html=`
+
+      <div
+        contenteditable="true"
+        style="
+          padding:20px 8%;
+          font-size:${p.fontSize || 17}px;
+          color:${p.color || "#667085"};
+          text-align:${p.align || "left"};
+          line-height:1.6;
+          outline:none;
+        "
+        oninput="updateText('${element.id}',this.innerText)"
+      >
+        ${escapeHTML(p.text || "Adicione uma descrição para sua página.")}
+      </div>
+
+    `;
+
+  }
+
+  else if(element.type==="button"){
+
+    html=`
+
+      <div style="
+        padding:25px 8%;
+        background:${p.sectionBg || "transparent"};
+        text-align:${p.align || "left"};
+      ">
+
+        <a
+          href="${p.link || "#"}"
+          onclick="return false"
+          style="
+            display:inline-flex;
+            padding:${p.padding || "13px 22px"};
+            background:${p.background || "#111827"};
+            color:${p.color || "#ffffff"};
+            border-radius:${p.radius || 8}px;
+            text-decoration:none;
+            font-size:13px;
+            font-weight:700;
+          "
+        >
+          ${escapeHTML(p.text || "Clique aqui")}
+        </a>
+
+      </div>
+
+    `;
+
+  }
+
+  else if(element.type==="image"){
+
+    html=`
+
+      <div style="
+        padding:25px 8%;
+        text-align:${p.align || "center"};
+      ">
+
+        <img
+          src="${p.url || "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80"}"
+          alt="${escapeHTML(p.alt || "Imagem")}"
+          loading="lazy"
+          style="
+            width:${p.width || "100%"};
+            max-width:100%;
+            height:${p.height || "360px"};
+            object-fit:${p.fit || "cover"};
+            border-radius:${p.radius || 14}px;
+            display:block;
+            margin:auto;
+          "
+        >
+
+      </div>
+
+    `;
+
+  }
+
+  else if(element.type==="card"){
+
+    html=`
+
+      <div style="
+        margin:15px 8%;
+        padding:28px;
+        border:1px solid ${p.border || "#e6e8ec"};
+        border-radius:${p.radius || 14}px;
+        background:${p.background || "#ffffff"};
+        box-shadow:${p.shadow || "0 8px 30px rgba(0,0,0,.05)"};
+      ">
+
+        <h3
+          contenteditable="true"
+          style="margin-bottom:8px;outline:none"
+          oninput="updateNestedText('${element.id}','title',this.innerText)"
+        >
+          ${escapeHTML(p.title || "Título do cartão")}
+        </h3>
+
+        <p
+          contenteditable="true"
+          style="color:#667085;line-height:1.6;outline:none"
+          oninput="updateNestedText('${element.id}','description',this.innerText)"
+        >
+          ${escapeHTML(p.description || "Descrição do seu conteúdo.")}
+        </p>
+
+      </div>
+
+    `;
+
+  }
+
+  else if(element.type==="badge"){
+
+    html=`
+
+      <div style="padding:20px 8%">
+
+        <span
+          contenteditable="true"
+          style="
+            display:inline-block;
+            background:${p.background || "#eee"};
+            color:${p.color || "#333"};
+            padding:6px 10px;
+            border-radius:99px;
+            font-size:11px;
+            font-weight:700;
+            outline:none;
+          "
+          oninput="updateText('${element.id}',this.innerText)"
+        >
+          ${escapeHTML(p.text || "NOVO")}
+        </span>
+
+      </div>
+
+    `;
+
+  }
+
+  else if(element.type==="input"){
+
+    html=`
+
+      <div style="padding:20px 8%">
+
+        <input
+          placeholder="${escapeHTML(p.placeholder || "Digite algo...")}"
+          style="
+            width:100%;
+            max-width:500px;
+            padding:12px;
+            border:1px solid #d8dce2;
+            border-radius:${p.radius || 8}px;
+            outline:none;
+          "
+        >
+
+      </div>
+
+    `;
+
+  }
+
+  else if(element.type==="divider"){
+
+    html=`
+
+      <div style="padding:20px 8%">
+
+        <hr style="
+          border:0;
+          border-top:1px solid ${p.color || "#e5e7eb"};
+        ">
+
+      </div>
+
+    `;
+
+  }
+
+  else if(element.type==="spacer"){
+
+    html=`
+
+      <div style="
+        height:${p.height || 80}px;
+      "></div>
+
+    `;
+
+  }
+
+  return html;
+
+}
+
+
+function escapeHTML(value){
+
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;");
+
+}
+
+
+/* =====================================================
+   SELEÇÃO
+===================================================== */
+
+function selectElement(id){
+
+  state.selectedElement=id;
+
+  render();
+
+}
+
+
+function clearSelection(){
+
+  state.selectedElement=null;
+
+  render();
+
+}
+
+
+/* =====================================================
+   PROPRIEDADES
+===================================================== */
+
+function renderProperties(){
+
+  const container =
+    document.getElementById(
+      "selectedProperties"
+    );
+
+  const element =
+    state.elements.find(
+      e=>e.id===state.selectedElement
+    );
+
+  if(!element){
+
+    container.innerHTML=`
+
+      <div class="prop-section">
+
+        <div class="prop-title">
+          ELEMENTO
+        </div>
+
+        <p style="
+          color:#666d78;
+          font-size:11px;
+          line-height:1.5
+        ">
+          Selecione um elemento no canvas
+          para editar suas propriedades.
+        </p>
+
+      </div>
+
+    `;
+
+    return;
+
+  }
+
+  const p=element.props || {};
+
+  container.innerHTML=`
+
+    <div class="prop-section">
+
+      <div class="prop-title">
+        ${element.type.toUpperCase()}
+      </div>
+
+      <div class="field">
+
+        <label>Texto</label>
+
+        <input
+          value="${escapeHTML(p.text || p.title || "")}"
+          oninput="propertyText(this.value)"
+        >
+
+      </div>
+
+    </div>
+
+    <div class="prop-section">
+
+      <div class="prop-title">
+        CONTEÚDO
+      </div>
+
+      <div class="field">
+
+        <label>Link</label>
+
+        <input
+          value="${escapeHTML(p.link || "#")}"
+          onchange="updateProperty('link',this.value)"
+        >
+
+      </div>
+
+      <div class="field">
+
+        <label>URL da imagem</label>
+
+        <input
+          value="${escapeHTML(p.url || "")}"
+          placeholder="https://..."
+          onchange="updateProperty('url',this.value)"
+        >
+
+      </div>
+
+      <div class="field">
+
+        <label>Texto alternativo</label>
+
+        <input
+          value="${escapeHTML(p.alt || "")}"
+          onchange="updateProperty('alt',this.value)"
+        >
+
+      </div>
+
+    </div>
+
+    <div class="prop-section">
+
+      <div class="prop-title">
+        ESTILO
+      </div>
+
+      <div class="field">
+
+        <label>Cor do texto</label>
+
+        <input
+          type="color"
+          value="${p.color || "#111827"}"
+          onchange="updateProperty('color',this.value)"
+        >
+
+      </div>
+
+      <div class="field">
+
+        <label>Cor de fundo</label>
+
+        <input
+          type="color"
+          value="${p.background || "#111827"}"
+          onchange="updateProperty('background',this.value)"
+        >
+
+      </div>
+
+      <div class="row">
+
+        <div class="field">
+
+          <label>Raio</label>
+
+          <input
+            type="number"
+            value="${p.radius || 8}"
+            onchange="updateProperty('radius',this.value)"
+          >
+
+        </div>
+
+        <div class="field">
+
+          <label>Tamanho</label>
+
+          <input
+            type="number"
+            value="${p.fontSize || 16}"
+            onchange="updateProperty('fontSize',this.value)"
+          >
+
+        </div>
+
+      </div>
+
+    </div>
+
+    <div class="prop-section">
+
+      <div class="prop-title">
+        AÇÕES
+      </div>
+
+      <div class="property-actions">
+
+        <button
+          onclick="duplicateElement('${element.id}')">
+          Duplicar
+        </button>
+
+        <button
+          onclick="deleteElement('${element.id}')">
+          Excluir
+        </button>
+
+      </div>
+
+    </div>
+
+  `;
+
+}
+
+
+function propertyText(value){
+
+  const element =
+    state.elements.find(
+      e=>e.id===state.selectedElement
+    );
+
+  if(!element)return;
+
+  snapshot();
+
+  if(element.props.text!==undefined){
+
+    element.props.text=value;
+
+  }else{
+
+    element.props.title=value;
+
+  }
+
+  render();
+
+}
+
+
+function updateText(id,text){
+
+  const element =
+    state.elements.find(
+      e=>e.id===id
+    );
+
+  if(!element)return;
+
+  if(element.props.text!==undefined){
+
+    element.props.text=text;
+
+  }else{
+
+    element.props.title=text;
+
+  }
+
+  saveProject(false);
+
+}
+
+
+function updateNestedText(id,key,value){
+
+  const element =
+    state.elements.find(
+      e=>e.id===id
+    );
+
+  if(!element)return;
+
+  element.props[key]=value;
+
+  saveProject(false);
+
+}
+
+
+function updateProperty(key,value){
+
+  const element =
+    state.elements.find(
+      e=>e.id===state.selectedElement
+    );
+
+  if(!element)return;
+
+  snapshot();
+
+  element.props[key]=value;
+
+  render();
+
+}
+
+
+function changeCanvasBackground(color){
+
+  state.project.background=color;
+
+  document.getElementById(
+    "canvas"
+  ).style.background=color;
+
+  saveProject(false);
+
+}
+
+
+/* =====================================================
+   COMPONENTES
+===================================================== */
+
+function addComponent(type){
+
+  snapshot();
+
+  const defaults={
+
+    heading:{
+      text:"Seu novo título",
+      fontSize:54,
+      weight:800,
+      color:"#111827"
+    },
+
+    paragraph:{
+      text:"Este é um novo parágrafo. Edite este texto diretamente no canvas.",
+      fontSize:17,
+      color:"#667085"
+    },
+
+    button:{
+      text:"Começar agora",
+      background:"#111827",
+      color:"#ffffff",
+      radius:8,
+      link:"#"
+    },
+
+    image:{
+      url:"https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
+      alt:"Imagem",
+      height:"360px",
+      radius:14
+    },
+
+    card:{
+      title:"Novo cartão",
+      description:"Descrição do cartão.",
+      background:"#ffffff",
+      radius:14
+    },
+
+    badge:{
+      text:"NOVO",
+      background:"#eee",
+      color:"#333"
+    },
+
+    input:{
+      placeholder:"Digite algo..."
+    },
+
+    divider:{
+      color:"#e5e7eb"
+    },
+
+    spacer:{
+      height:80
+    }
+
+  };
+
+  const element={
+    id:uid(),
+    type,
+    props:clone(defaults[type])
+  };
+
+  state.elements.push(element);
+
+  state.selectedElement=element.id;
+
+  render();
+
+  toast("Componente adicionado.");
+
+}
+
+
+/* =====================================================
+   SEÇÕES
+===================================================== */
+
+function addSection(type){
+
+  snapshot();
+
+  if(type==="hero"){
+
+    state.elements.push({
+      id:uid(),
+      type:"heading",
+      props:{
+        text:"Crie algo extraordinário.",
+        fontSize:64,
+        weight:800,
+        color:"#111827"
+      }
+    });
+
+    state.elements.push({
+      id:uid(),
+      type:"paragraph",
+      props:{
+        text:"Uma experiência digital criada com o OriginKit AI.",
+        fontSize:18,
+        color:"#667085"
+      }
+    });
+
+    state.elements.push({
+      id:uid(),
+      type:"button",
+      props:{
+        text:"Começar agora",
+        background:"#111827",
+        color:"#fff",
+        radius:8
+      }
+    });
+
+  }
+
+  else if(type==="features"){
+
+    for(let i=0;i<3;i++){
+
+      state.elements.push({
+        id:uid(),
+        type:"card",
+        props:{
+          title:[
+            "Simples",
+            "Rápido",
+            "Flexível"
+          ][i],
+          description:[
+            "Construa interfaces sem complicação.",
+            "Edite tudo diretamente no navegador.",
+            "Personalize cada detalhe do projeto."
+          ][i]
+        }
+      });
+
+    }
+
+  }
+
+  else if(type==="pricing"){
+
+    for(let i=0;i<3;i++){
+
+      state.elements.push({
+        id:uid(),
+        type:"card",
+        props:{
+          title:[
+            "Inicial",
+            "Profissional",
+            "Empresa"
+          ][i],
+          description:[
+            "Para projetos pequenos.",
+            "Para quem quer construir mais.",
+            "Para equipes e negócios."
+          ][i]
+        }
+      });
+
+    }
+
+  }
+
+  else if(type==="testimonials"){
+
+    state.elements.push({
+      id:uid(),
+      type:"paragraph",
+      props:{
+        text:"“O OriginKit mudou completamente a forma como construímos nossas páginas.”",
+        fontSize:25,
+        color:"#111827"
+      }
+    });
+
+  }
+
+  else if(type==="faq"){
+
+    for(let i=0;i<3;i++){
+
+      state.elements.push({
+        id:uid(),
+        type:"card",
+        props:{
+          title:[
+            "Como funciona?",
+            "Preciso saber programação?",
+            "Posso exportar meu projeto?"
+          ][i],
+          description:[
+            "Escolha componentes e monte sua página visualmente.",
+            "Não. O editor foi criado para facilitar o processo.",
+            "Sim. O projeto pode ser exportado como HTML, CSS e JS."
+          ][i]
+        }
+      });
+
+    }
+
+  }
+
+  else if(type==="cta"){
+
+    state.elements.push({
+      id:uid(),
+      type:"heading",
+      props:{
+        text:"Pronto para construir?",
+        fontSize:46,
+        weight:800
+      }
+    });
+
+    state.elements.push({
+      id:uid(),
+      type:"button",
+      props:{
+        text:"Criar meu projeto",
+        background:"#6d5dfc",
+        color:"#fff",
+        radius:8
+      }
+    });
+
+  }
+
+  render();
+
+  toast("Seção adicionada.");
+
+}
+
+
+/* =====================================================
+   MOVIMENTAÇÃO
+===================================================== */
+
+function moveElement(id,direction){
+
+  snapshot();
+
+  const index =
+    state.elements.findIndex(
+      e=>e.id===id
+    );
+
+  const target=index+direction;
+
+  if(
+    target<0 ||
+    target>=state.elements.length
+  ){
+
+    return;
+
+  }
+
+  [
+    state.elements[index],
+    state.elements[target]
+  ]=[
+    state.elements[target],
+    state.elements[index]
+  ];
+
+  render();
+
+}
+
+
+function reorderElement(movingId,targetId){
+
+  snapshot();
+
+  const from =
+    state.elements.findIndex(
+      e=>e.id===movingId
+    );
+
+  const to =
+    state.elements.findIndex(
+      e=>e.id===targetId
+    );
+
+  if(from===-1 || to===-1)return;
+
+  const item =
+    state.elements.splice(from,1)[0];
+
+  state.elements.splice(to,0,item);
+
+  render();
+
+  toast("Elemento reorganizado.");
+
+}
+
+
+/* =====================================================
+   DUPLICAR / EXCLUIR
+===================================================== */
+
+function duplicateElement(id){
+
+  snapshot();
+
+  const index =
+    state.elements.findIndex(
+      e=>e.id===id
+    );
+
+  if(index===-1)return;
+
+  const copy =
+    clone(state.elements[index]);
+
+  copy.id=uid();
+
+  state.elements.splice(
+    index+1,
+    0,
+    copy
+  );
+
+  state.selectedElement=copy.id;
+
+  render();
+
+  toast("Elemento duplicado.");
+
+}
+
+
+function deleteElement(id){
+
+  snapshot();
+
+  state.elements =
+    state.elements.filter(
+      e=>e.id!==id
+    );
+
+  if(state.selectedElement===id){
+
+    state.selectedElement=null;
+
+  }
+
+  render();
+
+  toast("Elemento excluído.");
+
+}
+
+
+/* =====================================================
+   TEMPLATES
+===================================================== */
+
+function clearProject(){
+
+  snapshot();
+
+  state.elements=[];
+
+  state.selectedElement=null;
+
+}
+
+
+function applyTemplate(type){
+
+  clearProject();
+
+  if(type==="ai"){
+
+    state.elements=[
+
+      elementHeading(
+        "Construa o futuro com inteligência.",
+        64
+      ),
+
+      elementParagraph(
+        "Uma plataforma inteligente para transformar ideias em produtos digitais."
+      ),
+
+      elementButton(
+        "Começar gratuitamente",
+        "#635bff"
+      ),
+
+      elementCard(
+        "Automação inteligente",
+        "Crie fluxos poderosos sem escrever centenas de linhas."
+      ),
+
+      elementCard(
+        "Análise avançada",
+        "Transforme dados em decisões melhores."
+      ),
+
+      elementCard(
+        "Escala instantânea",
+        "Seu produto preparado para crescer."
+      ),
+
+      elementHeading(
+        "Tudo que você precisa para construir.",
+        44
+      ),
+
+      elementButton(
+        "Conhecer a plataforma",
+        "#111827"
+      )
+
+    ];
+
+  }
+
+  else if(type==="agency"){
+
+    state.elements=[
+
+      elementHeading(
+        "Ideias que merecem ser vistas.",
+        70
+      ),
+
+      elementParagraph(
+        "Criamos experiências digitais para marcas que não querem parecer iguais a todas as outras."
+      ),
+
+      elementButton(
+        "Ver projetos",
+        "#111111"
+      ),
+
+      elementCard(
+        "Identidade visual",
+        "Marcas com presença e personalidade."
+      ),
+
+      elementCard(
+        "Experiências web",
+        "Interfaces modernas e memoráveis."
+      ),
+
+      elementCard(
+        "Estratégia",
+        "Design pensado para gerar resultados."
+      )
+
+    ];
+
+  }
+
+  else if(type==="portfolio"){
+
+    state.elements=[
+
+      elementBadge("PORTFÓLIO"),
+
+      elementHeading(
+        "Samuel Victor",
+        70
+      ),
+
+      elementParagraph(
+        "Designer, desenvolvedor e criador de experiências digitais."
+      ),
+
+      elementButton(
+        "Meus projetos",
+        "#111827"
+      ),
+
+      elementImage(),
+
+      elementHeading(
+        "Projetos selecionados",
+        42
+      ),
+
+      elementCard(
+        "Projeto Omega",
+        "Interface futurista para uma plataforma experimental."
+      ),
+
+      elementCard(
+        "Void System",
+        "Experiência digital interativa."
+      )
+
+    ];
+
+  }
+
+  else if(type==="startup"){
+
+    state.elements=[
+
+      elementHeading(
+        "A próxima grande ideia começa aqui.",
+        65
+      ),
+
+      elementParagraph(
+        "Ferramentas simples para equipes construírem produtos extraordinários."
+      ),
+
+      elementButton(
+        "Começar agora",
+        "#087ea4"
+      ),
+
+      elementCard(
+        "Colaboração",
+        "Trabalhe junto com sua equipe em tempo real."
+      ),
+
+      elementCard(
+        "Velocidade",
+        "Do conceito ao produto em menos tempo."
+      ),
+
+      elementCard(
+        "Escala",
+        "Estrutura preparada para o crescimento."
+      )
+
+    ];
+
+  }
+
+  else if(type==="business"){
+
+    state.elements=[
+
+      elementHeading(
+        "Resultados começam com boas decisões.",
+        60
+      ),
+
+      elementParagraph(
+        "Soluções estratégicas para empresas que querem evoluir."
+      ),
+
+      elementButton(
+        "Fale conosco",
+        "#1f2937"
+      ),
+
+      elementHeading(
+        "Nossas soluções",
+        42
+      ),
+
+      elementCard(
+        "Consultoria",
+        "Estratégia para transformar desafios em oportunidades."
+      ),
+
+      elementCard(
+        "Tecnologia",
+        "Sistemas eficientes para operações modernas."
+      )
+
+    ];
+
+  }
+
+  else if(type==="personal"){
+
+    state.elements=[
+
+      elementHeading(
+        "Olá, eu sou Samuel.",
+        64
+      ),
+
+      elementParagraph(
+        "Eu construo projetos digitais, interfaces e experiências interativas."
+      ),
+
+      elementButton(
+        "Conheça meu trabalho",
+        "#8b5cf6"
+      ),
+
+      elementImage(),
+
+      elementHeading(
+        "Sobre mim",
+        42
+      ),
+
+      elementParagraph(
+        "Apaixonado por tecnologia, criatividade e pela ideia questionável de passar horas ajustando pixels."
+      )
+
+    ];
+
+  }
+
+  render();
+
+  toast("Modelo aplicado.");
+
+}
+
+
+function elementHeading(text,size){
+
+  return {
+    id:uid(),
+    type:"heading",
+    props:{
+      text,
+      fontSize:size,
+      weight:800,
+      color:"#111827"
+    }
+  };
+
+}
+
+
+function elementParagraph(text){
+
+  return {
+    id:uid(),
+    type:"paragraph",
+    props:{
+      text,
+      fontSize:18,
+      color:"#667085"
+    }
+  };
+
+}
+
+
+function elementButton(text,bg){
+
+  return {
+    id:uid(),
+    type:"button",
+    props:{
+      text,
+      background:bg,
+      color:"#fff",
+      radius:8
+    }
+  };
+
+}
+
+
+function elementCard(title,description){
+
+  return {
+    id:uid(),
+    type:"card",
+    props:{
+      title,
+      description
+    }
+  };
+
+}
+
+
+function elementImage(){
+
+  return {
+    id:uid(),
+    type:"image",
+    props:{
+      url:"https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1200&q=80",
+      alt:"Imagem do projeto",
+      height:"400px",
+      radius:16
+    }
+  };
+
+}
+
+
+function elementBadge(text){
+
+  return {
+    id:uid(),
+    type:"badge",
+    props:{
+      text,
+      background:"#111827",
+      color:"#fff"
+    }
+  };
+
+}
+
+
+function startBlank(){
+
+  clearProject();
+
+  render();
+
+  toast("Projeto vazio criado.");
+
+}
+
+
+function openTemplates(){
+
+  document
+    .getElementById("templates")
+    ?.scrollIntoView({
+      behavior:"smooth"
+    });
+
+}
+
+
+/* =====================================================
+   IA LOCAL
+===================================================== */
+
+function openAI(){
+
+  document
+    .getElementById("aiModal")
+    .classList.add("open");
+
+  setTimeout(()=>{
+
+    document
+      .getElementById("aiPrompt")
+      .focus();
+
+  },100);
+
+}
+
+
+function closeModal(id){
+
+  document
+    .getElementById(id)
+    .classList.remove("open");
+
+}
+
+
+function generateWithAI(){
+
+  const prompt =
+    document
+      .getElementById("aiPrompt")
+      .value
+      .toLowerCase();
+
+  const style =
+    document
+      .getElementById("aiStyle")
+      .value;
+
+  closeModal("aiModal");
+
+  toast("A IA está construindo sua página...");
+
+  setTimeout(()=>{
+
+    if(
+      prompt.includes("portfolio") ||
+      prompt.includes("portfólio")
+    ){
+
+      applyTemplate("portfolio");
+
+    }
+
+    else if(
+      prompt.includes("saas") ||
+      prompt.includes("software")
+    ){
+
+      applyTemplate("ai");
+
+    }
+
+    else if(
+      prompt.includes("startup")
+    ){
+
+      applyTemplate("startup");
+
+    }
+
+    else if(
+      prompt.includes("agência") ||
+      prompt.includes("agencia")
+    ){
+
+      applyTemplate("agency");
+
+    }
+
+    else if(
+      prompt.includes("empresa") ||
+      prompt.includes("negócio") ||
+      prompt.includes("negocio")
+    ){
+
+      applyTemplate("business");
+
+    }
+
+    else if(
+      prompt.includes("pessoal") ||
+      prompt.includes("pessoa")
+    ){
+
+      applyTemplate("personal");
+
+    }
+
+    else if(
+      prompt.includes("ai") ||
+      prompt.includes("inteligência") ||
+      prompt.includes("inteligencia")
+    ){
+
+      applyTemplate("ai");
+
+    }
+
+    else{
+
+      applyTemplate("startup");
+
+    }
+
+    applyAIStyle(style);
+
+    toast("Página gerada com IA.");
+
+  },900);
+
+}
+
+
+function applyAIStyle(style){
+
+  if(style==="Futurista"){
+
+    state.elements.forEach(el=>{
+
+      if(el.type==="heading"){
+
+        el.props.color="#5b4bdb";
+
+      }
+
+      if(el.type==="button"){
+
+        el.props.background="#635bff";
+
+      }
+
+    });
+
+    render();
+
+  }
+
+  if(style==="Minimalista"){
+
+    state.elements.forEach(el=>{
+
+      if(el.props){
+
+        el.props.radius=4;
+
+      }
+
+    });
+
+    render();
+
+  }
+
+}
+
+
+/* =====================================================
+   RESPONSIVIDADE
+===================================================== */
+
+function setViewport(view,button){
+
+  state.viewport=view;
+
+  const canvas =
+    document.getElementById("canvas");
+
+  canvas.classList.remove(
+    "tablet",
+    "mobile"
+  );
+
+  if(view==="tablet"){
+
+    canvas.classList.add("tablet");
+
+  }
+
+  if(view==="mobile"){
+
+    canvas.classList.add("mobile");
+
+  }
+
+  document
+    .querySelectorAll(".device")
+    .forEach(b=>b.classList.remove("active"));
+
+  button.classList.add("active");
+
+}
+
+
+/* =====================================================
+   PREVIEW
+===================================================== */
+
+function togglePreview(){
+
+  state.preview=!state.preview;
+
+  document
+    .getElementById("app")
+    .classList.toggle(
+      "preview-mode",
+      state.preview
+    );
+
+}
+
+
+function publishProject(){
+
+  saveProject(false);
+
+  toast(
+    "Projeto publicado localmente."
+  );
+
+}
+
+
+/* =====================================================
+   SALVAR
+===================================================== */
+
+function updateProjectName(value){
+
+  state.project.name=value;
+
+}
+
+
+function saveProject(showToast=true){
+
+  const data={
+
+    project:state.project,
+
+    elements:state.elements,
+
+    viewport:state.viewport
+
+  };
+
+  localStorage.setItem(
+    "originkit-project",
+    JSON.stringify(data)
+  );
+
+  if(showToast){
+
+    toast("Projeto salvo.");
+
+  }
+
+}
+
+
+function loadProject(){
+
+  const saved =
+    localStorage.getItem(
+      "originkit-project"
+    );
+
+  if(!saved){
+
+    snapshot();
+
+    render();
+
+    return;
+
+  }
+
+  try{
+
+    const data=
+      JSON.parse(saved);
+
+    state.project =
+      data.project ||
+      state.project;
+
+    state.elements =
+      data.elements ||
+      [];
+
+    state.viewport =
+      data.viewport ||
+      "desktop";
+
+    document
+      .getElementById("projectName")
+      .value=
+      state.project.name;
+
+    snapshot();
+
+    render();
+
+  }catch(error){
+
+    console.error(error);
+
+    snapshot();
+
+    render();
+
+  }
+
+}
+
+
+/* =====================================================
+   CAMADAS
+===================================================== */
+
+function renderLayers(){
+
+  const container =
+    document.getElementById("layers");
+
+  if(!container)return;
+
+  container.innerHTML="";
+
+  state.elements.forEach(
+    (element,index)=>{
+
+      const button =
+        document.createElement("button");
+
+      button.className="side-item";
+
+      button.style.fontSize="10px";
+
+      button.innerHTML=`
+
+        <span class="side-icon">
+          ${index+1}
+        </span>
+
+        ${elementName(element)}
+
+      `;
+
+      button.onclick=()=>{
+
+        selectElement(element.id);
+
+      };
+
+      container.appendChild(button);
+
+    }
+  );
+
+}
+
+
+function elementName(element){
+
+  const p=element.props || {};
+
+  if(element.type==="heading")
+    return p.text?.slice(0,22) || "Título";
+
+  if(element.type==="paragraph")
+    return "Parágrafo";
+
+  if(element.type==="button")
+    return p.text || "Botão";
+
+  if(element.type==="card")
+    return p.title || "Cartão";
+
+  if(element.type==="image")
+    return "Imagem";
+
+  if(element.type==="badge")
+    return p.text || "Etiqueta";
+
+  return element.type;
+
+}
+
+
+/* =====================================================
+   BUSCA
+===================================================== */
+
+function searchLibrary(value){
+
+  const term =
+    value.toLowerCase().trim();
+
+  document
+    .querySelectorAll(
+      ".side-item"
+    )
+    .forEach(item=>{
+
+      const text =
+        (
+          item.dataset.search ||
+          item.textContent
+        ).toLowerCase();
+
+      item.style.display =
+        !term ||
+        text.includes(term)
+          ? "flex"
+          : "none";
+
+    });
+
+  document
+    .querySelectorAll(
+      ".template-card"
+    )
+    .forEach(card=>{
+
+      const text =
+        card.textContent.toLowerCase();
+
+      card.style.display =
+        !term ||
+        text.includes(term)
+          ? "block"
+          : "none";
+
+    });
+
+}
+
+
+/* =====================================================
+   PAINÉIS
+===================================================== */
+
+function showPanel(panel){
+
+  if(panel==="componentes"){
+
+    document
+      .querySelector(".sidebar-scroll")
+      .scrollTop=0;
+
+  }
+
+  if(panel==="secoes"){
+
+    const el =
+      document.querySelector(
+        '[data-search*="hero"]'
+      );
+
+    el?.scrollIntoView({
+      behavior:"smooth"
+    });
+
+  }
+
+  if(panel==="modelos"){
+
+    document
+      .getElementById("templates")
+      .scrollIntoView({
+        behavior:"smooth"
+      });
+
+  }
+
+}
+
+
+/* =====================================================
+   EXPORTAÇÃO
+===================================================== */
+
+function openExport(){
+
+  document
+    .getElementById("exportModal")
+    .classList.add("open");
+
+}
+
+
+function getSiteHTML(){
+
+  const temp =
+    document.createElement("div");
+
+  temp.className="canvas";
+
+  temp.style.background =
+    state.project.background;
+
+  state.elements.forEach(element=>{
+
+    const node =
+      createElementNode(element);
+
+    node.classList.remove("selected");
+
+    const actions =
+      node.querySelector(
+        ".element-actions"
+      );
+
+    actions?.remove();
+
+    temp.appendChild(node);
+
+  });
+
+  return temp.innerHTML;
+
+}
+
+
+function downloadFile(filename,content,type){
+
+  const blob =
+    new Blob(
+      [content],
+      {type}
+    );
+
+  const url =
+    URL.createObjectURL(blob);
+
+  const a =
+    document.createElement("a");
+
+  a.href=url;
+
+  a.download=filename;
+
+  document.body.appendChild(a);
+
+  a.click();
+
+  a.remove();
+
+  URL.revokeObjectURL(url);
+
+}
+
+
+function exportHTML(){
+
+  const html=`
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0">
+
+<title>${escapeHTML(state.project.name)}</title>
+
+<style>
+
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+font-family:Arial,Helvetica,sans-serif;
+color:#111827;
+background:${state.project.background};
+}
+
+.site-element{
+position:relative;
+}
+
+a{
+text-decoration:none;
+}
+
+@media(max-width:768px){
+
+.hero h1{
+font-size:45px;
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+${getSiteHTML()}
+
+</body>
+
+</html>
+`;
+
+  downloadFile(
+    "index.html",
+    html,
+    "text/html"
+  );
+
+  closeModal("exportModal");
+
+  toast("HTML exportado.");
+
+}
+
+
+function exportCSS(){
+
+  const css=`
+
+/* CSS exportado pelo OriginKit AI */
+
+*{
+box-sizing:border-box;
+}
+
+body{
+margin:0;
+font-family:Arial,Helvetica,sans-serif;
+}
+
+`;
+
+  downloadFile(
+    "style.css",
+    css,
+    "text/css"
+  );
+
+  toast("CSS exportado.");
+
+}
+
+
+function exportJS(){
+
+  const js=`
+
+// JavaScript exportado pelo OriginKit AI
+
+console.log(
+  "Projeto OriginKit carregado."
+);
+
+`;
+
+  downloadFile(
+    "script.js",
+    js,
+    "text/javascript"
+  );
+
+  toast("JavaScript exportado.");
+
+}
+
+
+/* =====================================================
+   TECLADO
+===================================================== */
+
+document.addEventListener(
+  "keydown",
+  function(e){
+
+    const tag =
+      document.activeElement?.tagName;
+
+    const editing =
+      tag==="INPUT" ||
+      tag==="TEXTAREA" ||
+      document.activeElement?.isContentEditable;
+
+    if(e.ctrlKey && e.key.toLowerCase()==="s"){
+
+      e.preventDefault();
+
+      saveProject();
+
+    }
+
+    if(
+      e.ctrlKey &&
+      !e.shiftKey &&
+      e.key.toLowerCase()==="z"
+    ){
+
+      if(!editing){
+
+        e.preventDefault();
+
+        undo();
+
+      }
+
+    }
+
+    if(
+      e.ctrlKey &&
+      e.shiftKey &&
+      e.key.toLowerCase()==="z"
+    ){
+
+      if(!editing){
+
+        e.preventDefault();
+
+        redo();
+
+      }
+
+    }
+
+    if(
+      e.ctrlKey &&
+      e.key.toLowerCase()==="d"
+    ){
+
+      if(
+        state.selectedElement &&
+        !editing
+      ){
+
+        e.preventDefault();
+
+        duplicateElement(
+          state.selectedElement
+        );
+
+      }
+
+    }
+
+    if(
+      e.key==="Delete" &&
+      !editing &&
+      state.selectedElement
+    ){
+
+      deleteElement(
+        state.selectedElement
+      );
+
+    }
+
+    if(
+      e.ctrlKey &&
+      e.key.toLowerCase()==="p"
+    ){
+
+      e.preventDefault();
+
+      togglePreview();
+
+    }
+
+    if(e.key==="Escape"){
+
+      document
+        .querySelectorAll(
+          ".modal-overlay.open"
+        )
+        .forEach(modal=>{
+
+          modal.classList.remove("open");
+
+        });
+
+    }
+
+  }
+);
+
+
+/* =====================================================
+   CLIQUE FORA
+===================================================== */
+
+document
+  .getElementById("canvas")
+  .addEventListener(
+    "click",
+    function(e){
+
+      if(e.target===this){
+
+        clearSelection();
+
+      }
+
+    }
+  );
+
+
+/* =====================================================
+   INICIALIZAÇÃO
+===================================================== */
+
+loadProject();
+
 </script>
+
 </body>
 </html>
